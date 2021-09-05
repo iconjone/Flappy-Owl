@@ -1,5 +1,5 @@
 import assets from './assets.js';
-
+console.log(window.socket)
 class FlappyBird extends Phaser.GameObjects.Sprite {
 	constructor(scene, x, y){
 		super(scene, x, y);
