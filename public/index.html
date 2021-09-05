@@ -76,7 +76,7 @@
       console.log(oq)
       oq.forEach((person, enumer) => {
         let li = document.createElement('li')
-        li.innerHTML = person.fName + " " + person.lName + " | " + person.score 
+        li.innerHTML = person.fName + " " + person.lName + " - " + person.score 
         leaderboard.appendChild(li)
       });
     })
