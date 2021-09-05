@@ -263,6 +263,10 @@ class FlappyBirdScene extends Phaser.Scene {
 	}
 
 	restartGame(scene){
+		if (!this.sentDieMessage) {
+			window.socket.emit('die', {id: this.id, fName: this.fName, lName: this.lName, score: this.score});
+			console.log('foo')
+		}
 		scene.pipes.clear(true, true);
 		scene.gaps.clear(true, true);
 		scene.flappyBird.destroy();
@@ -271,10 +275,7 @@ class FlappyBirdScene extends Phaser.Scene {
 		scene.restart.visible = false;
 		scene.scoreTxt.setText('0');
 		scene.initGame();
-		if (!this.sentDieMessage) {
-			window.socket.emit('die', {id: this.id, fName: this.fName, lName: this.lName, score: this.score});
-			console.log('foo')
-		}
+		
 		this.sentDieMessage = true;
 	}
 

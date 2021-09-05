@@ -18,6 +18,7 @@ const q = data.q || []
 const oq = data.oq || []
 
 let count = 0;
+let maxScore = 0;
 
 
 const save = () => {
@@ -54,14 +55,21 @@ io.on('connection', (socket) => {
 	});
 
 	socket.on('die', (msg) => {
-		console.log('die: ' + msg);
+    
+		console.log('die: ' + JSON.stringify(msg));
+    if(msg.score > maxScore)
+      maxScore = msg.score
 		count++
 		if (count >= 3) {
-			q.shift()
-
+			let finishPlayer = q.shift()
+      finishPlayer.score = maxScore
+      oq.push(finishPlayer)
 			io.emit('status', q);
+      io.emit('leaderboard',oq)
+
 			save()
 			count = 0
+      maxScore = 0
 		}
 	});
 	socket.on('skip', (msg) => {
