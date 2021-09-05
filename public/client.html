@@ -19,6 +19,11 @@
     function handlePress() {
       window.socket.emit('press', '');
     }
+    window.socket.on("connect", ()=>{
+      const queryString = window.location.search;
+      const urlParams = new URLSearchParams(queryString);
+      window.socket.emit("newPlayer", {fName: urlParams.get("fName"), lName: urlParams.get("lName"),id: urlParams.get("email"),})
+    })
   </script>
   <style>
     html,
