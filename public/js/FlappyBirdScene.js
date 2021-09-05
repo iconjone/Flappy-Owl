@@ -282,15 +282,15 @@ class FlappyBirdScene extends Phaser.Scene {
 		this.score++;
 		gap.destroy();
 
-		if (this.score % 10 == 0){
-			this.backgroundDay.visible = !this.backgroundDay.visible;
-			this.backgroundNight.visible = !this.backgroundNight.visible;
-			if (this.currentPipe === assets.obstacle.pipe.green){
-				this.currentPipe = assets.obstacle.pipe.red;
-			} else {
-				this.currentPipe = assets.obstacle.pipe.green;
-			}
-		}
+		// if (this.score % 10 == 0){
+		// 	this.backgroundDay.visible = !this.backgroundDay.visible;
+		// 	this.backgroundNight.visible = !this.backgroundNight.visible;
+		// 	if (this.currentPipe === assets.obstacle.pipe.green){
+		// 		this.currentPipe = assets.obstacle.pipe.red;
+		// 	} else {
+		// 		this.currentPipe = assets.obstacle.pipe.green;
+		// 	}
+		// }
 		this.scoreTxt.setText(this.score);
 	}
 
@@ -315,7 +315,7 @@ class FlappyBirdScene extends Phaser.Scene {
 		const pipeTop = this.pipes.create(288, top, this.currentPipe.top).setImmovable(true);
 		pipeTop.body.allowGravity = false;
 
-		const pipeBottom = this.pipes.create(288, top + 420, this.currentPipe.bottom).setImmovable(true);
+		const pipeBottom = this.pipes.create(288, top + 480, this.currentPipe.bottom).setImmovable(true);
 		pipeBottom.body.allowGravity = false;			
 	}
 }

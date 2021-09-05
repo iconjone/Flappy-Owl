@@ -39,6 +39,7 @@ class FlappyBird extends Phaser.GameObjects.Sprite {
 		this.setAngle(90);
 		this.setDepth(15); // bring it to the front of everything
 		this.anims.play(this.bird.stop);
+		
 	}
 
 	getRandom(){
