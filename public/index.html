@@ -29,7 +29,10 @@
     <h2>Queue</h2>
     <ul id="queue">
 
-    <ul>
+    </ul>
+      <button onclick="skipQueue()">
+        Skip
+        </button>
   </body>
   <script>
     window.socket.on("status", (q)=>{
@@ -42,5 +45,15 @@
         queue.appendChild(li)
       });
     })
+
+    function skipQueue(){
+      console.log("skipping")
+      window.socket.emit("skip",0)
+    }
   </script>
+  <style>
+    body{ 
+        font-family: font1;
+      }
+    </style>
 </html>
