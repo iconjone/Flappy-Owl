@@ -61,7 +61,7 @@ io.on('connection', (socket) => {
       maxScore = msg.score
 		count++
 		if (count >= 3) {
-			let finishPlayer = q.shift()
+			let finishPlayer = JSON.parse(JSON.stringify(q.shift()))
       finishPlayer.score = maxScore
       oq.push(finishPlayer)
 			io.emit('status', q);
