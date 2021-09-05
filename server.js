@@ -7,11 +7,23 @@ const io = new Server(server);
 
 app.use(express.static('public'))
 
+const q = [];
+
+const count = 0;
+
 io.on('connection', (socket) => {
-	console.log('connected')
 	socket.on('press', (msg) => {
-		io.emit('press', msg);
-		console.log('a user pressed');
+		if (q[0].id == msg.id) {
+			io.emit('press', msg);
+		}
+	});
+
+	socket.on('die', (msg) => {
+		count ++
+		if (count >= 3) {
+			q.shift()
+			io.emit('status', {q});
+		}
 	});
 });
 
