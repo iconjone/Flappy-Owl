@@ -1,6 +1,7 @@
 import assets from './assets.js';
 import FlappyBird from './FlappyBird.js';
 
+console.log(window.socket)
 class FlappyBirdScene extends Phaser.Scene {
 	constructor(){
 		super("FlappyBird");
@@ -16,6 +17,8 @@ class FlappyBirdScene extends Phaser.Scene {
 			frameWidth: 336,
 			frameHeight: 112
 		});
+// 
+		// this.socket = io();
 
 		this.load.image(assets.scene.startGame, 'assets/startgame.png');
 		this.load.image(assets.scene.gameOver, 'assets/gameover.png');
