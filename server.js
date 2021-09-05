@@ -11,8 +11,8 @@ app.use(express.static('public'))
 
 
 const file = fs.readFileSync('data.json');
-const data = JSON.parse(rawdata);
-console.log(student);
+const data = JSON.parse(file);
+// console.log(student);
 
 const q = data.q || []
 const oq = data.oq || []
@@ -21,7 +21,7 @@ let count = 0;
 
 
 const save = () => {
-	fs.writeFile('data.json', { q, oq }, (err) => {
+	fs.writeFile('data.json', JSON.stringify({ q, oq }), (err) => {
 		if (err) throw err;
 		console.log('Data written to file');
 	});
@@ -60,6 +60,7 @@ io.on('connection', (socket) => {
 			q.shift()
 
 			io.emit('status', q);
+			save()
 			count = 0
 		}
 	});
