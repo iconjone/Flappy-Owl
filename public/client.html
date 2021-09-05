@@ -14,12 +14,7 @@
     integrity="sha384-cPwlPLvBTa3sKAgddT6krw0cJat7egBga3DJepJyrLl4Q9/5WLra3rrnMcyTyOnh"
     crossorigin="anonymous"
   ></script>
-  <script>
-    window.socket = io();
-    function handlePress() {
-      window.socket.emit('press', '');
-    }
-  </script>
+
   <style>
     html,
     body {
@@ -42,6 +37,7 @@
       "
     >
       <button
+      id="jumpBtn"
         onclick="handlePress()"
         style="
           height: 200px;
@@ -50,9 +46,37 @@
           font-family: font1;
           touch-action: manipulation;
         "
+        disabled = true
       >
         JUMP
       </button>
     </div>
+    <script>
+      window.socket = io();
+      const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        let jumpBtn = document.getElementById("jumpBtn")
+      function handlePress() {
+        window.socket.emit('press', '');
+      }
+      window.socket.on("connect", ()=>{
+       
+        window.socket.emit("newPlayer", {fName: urlParams.get("fName"), lName: urlParams.get("lName"),id: urlParams.get("email"),})
+      })
+  
+      window.socket.on("status", (q)=>{
+        console.log(q)
+        if(q.length > 0){
+          if(q[0].id == urlParams.get("email")){
+            //it's your turn
+            console.log(jumpBtn)
+            jumpBtn.disabled = false;
+          }
+          else{
+            //disable
+          }
+        }
+      })
+    </script>
   </html>
 </html>
