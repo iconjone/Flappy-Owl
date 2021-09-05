@@ -6,8 +6,9 @@ class FlappyBirdScene extends Phaser.Scene {
 	constructor(){
 		super("FlappyBird");
 		window.socket.on('press', (msg) => {
-			this.user = msg.user
-			this.id = msg.id
+			this.user = msg.user;
+			this.fName = msg.fName;
+			this.lName = msg.lName;
 			if (this.restart.visible)
 				this.restartGame(this)
 			else 
@@ -270,6 +271,11 @@ class FlappyBirdScene extends Phaser.Scene {
 		scene.restart.visible = false;
 		scene.scoreTxt.setText('0');
 		scene.initGame();
+		if (!this.sentDieMessage) {
+			window.socket.emit('die', {id: this.id, fName: this.fName, lName: this.lName, score: this.score});
+			console.log('foo')
+		}
+		this.sentDieMessage = true;
 	}
 
 	updateScore(_, gap){
@@ -292,6 +298,7 @@ class FlappyBirdScene extends Phaser.Scene {
 		this.scoreTxt.alpha = 1;
 		this.hasGameStarted = true;
 		this.start.visible = false;
+		this.sentDieMessage = false
 		this.makePipes();
 	}
 

@@ -9,16 +9,17 @@ app.use(express.static('public'))
 
 const q = [];
 
-const count = 0;
+let count = 0;
 
 io.on('connection', (socket) => {
 	socket.on('press', (msg) => {
-		if (q[0].id == msg.id) {
+		// if (q[0].id == msg.id) {
 			io.emit('press', msg);
-		}
+		// }
 	});
 
 	socket.on('die', (msg) => {
+		console.log('die: ' + msg);
 		count ++
 		if (count >= 3) {
 			q.shift()
