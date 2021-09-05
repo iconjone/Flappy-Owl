@@ -5,6 +5,14 @@ console.log(window.socket)
 class FlappyBirdScene extends Phaser.Scene {
 	constructor(){
 		super("FlappyBird");
+		window.socket.on('press', (msg) => {
+			console.log(this.restart.visible)
+			if (this.restart.visible)
+				this.restartGame()
+			else 
+				this.flapBird();
+			console.log('a user pressed');
+		});
 	}
 
 	preload(){
