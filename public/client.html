@@ -21,6 +21,7 @@
       overflow-x: hidden;
       overflow-y: hidden;
       height: 100vh;
+      font-family: font1;
     }
     body {
       position: relative;
@@ -36,6 +37,9 @@
         font-family: font1;
       "
     >
+    <h3 id="message">
+      </h3>
+    </br>
       <button
       id="jumpBtn"
         onclick="handlePress()"
@@ -56,6 +60,8 @@
       const queryString = window.location.search;
         const urlParams = new URLSearchParams(queryString);
         let jumpBtn = document.getElementById("jumpBtn")
+        let message = document.getElementById("message")
+
       function handlePress() {
         window.socket.emit('press', '');
       }
@@ -66,15 +72,34 @@
   
       window.socket.on("status", (q)=>{
         console.log(q)
-        if(q.length > 0){
+        let num = 0
+        let presentFlag = false
+        q.forEach((element, enumer) => {
+          if(element.id == urlParams.get("email")){
+            num = enumer;
+            presentFlag = true
+          }
+        });
+        if(q.length > 0 && presentFlag){
           if(q[0].id == urlParams.get("email")){
             //it's your turn
+          message.innerText = "You're up!"
+
             console.log(jumpBtn)
             jumpBtn.disabled = false;
           }
           else{
             //disable
+            jumpBtn.disabled = true;
+          message.innerText = "Game Queue: " + num + "/" + q.length
+
+
           }
+        }
+        else{
+          jumpBtn.disabled = true;
+          message.innerText = "Game Queue Empty"
+
         }
       })
     </script>
